@@ -1,1 +1,100 @@
-Brain of simple Role Based Accessing Application
+Backend README:
+---------------
+
+Setup Instructions:
+    Clone the Repository
+    Clone the repository to your local machine:
+    git clone https://github.com/your-repository/backend.git
+
+---------------------------------------------------------------------------------------------------------------------------
+Install Dependencies:
+    Make sure you have Python 3.x installed. Then install the required dependencies:
+    pip install -r requirements.txt
+    Configure Environment Variables
+    Create a .env file in the root directory and add the following environment variables:
+
+    SECRET_KEY=your-secret-key // Mine is ('I_AM_BATMAN')
+    MONGO_URI=mongodb://localhost:27017/your_database
+    JWT_SECRET_KEY=your-jwt-secret-key
+    JWT_ACCESS_TOKEN_EXPIRES=3600  # 1 hour
+    JWT_REFRESH_TOKEN_EXPIRES=86400  # 1 day
+    Run the Application
+    Start the backend server using Flask:
+
+
+    flask run --debug / if can expose your port to your current port
+    Test the Application
+
+---------------------------------------------------------------------------------------------------------------------------
+
+You can test the backend by making requests to the relevant API endpoints (described below).
+API Documentation
+Authentication Endpoints
+POST /api/users/register
+Registers a new user.
+
+
+---------------------------------------------------------------------------------------------------------------------------
+Request Body:
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+Response:
+
+{
+  "message": "User registered successfully"
+}
+POST /api/users/login
+Authenticates the user and returns JWT tokens.
+
+Request Body:
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+Response:
+
+{
+  "message": "Login successful",
+  "access_token": "your-access-token",
+  "refresh_token": "your-refresh-token"
+}
+POST /api/users/reset-password
+Resets the user's password.
+
+Request Body:
+
+    {
+    "currentPassword": "oldPassword123",
+    "newPassword": "newPassword123",
+    "confirmPassword": "newPassword123"
+    }
+Response:
+
+    {
+    "message": "Password reset successfully"
+    }
+
+Error Responses:
+    401 Unauthorized: Invalid credentials or missing authentication token.
+    400 Bad Request: Invalid input or missing required fields.
+
+
+Technology Stack Used:
+
+    Frontend: Angular (v18.2.12), Bootstrap
+    Backend: Python (Flask), JWT (JSON Web Tokens)
+    Database: MongoDB
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+Assumptions Made:
+    The backend assumes that MongoDB is running locally at the default port (mongodb://localhost:27017).
+    The JWT tokens are valid for 1 hour (access token) and 1 day (refresh token).
+    The user’s email is unique for each registration.
+    The user’s password is hashed before being stored in the database.
